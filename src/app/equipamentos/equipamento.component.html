@@ -1,0 +1,91 @@
+<body class="min-vh-100">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 col-lg-9 mx-auto">
+        <div class="text-center text-md-start">
+          <h1 class="fw-bold mt-4">Equipamentos</h1>
+        </div>
+        <div class="d-grid d-md-block gap-2">
+          <button (click)="gravar(modal)" type="button" class="btn btn-light me-md-1 col-md-2 mt-3">
+            <i class="pi pi-user-plus me-2"></i>Novo
+          </button>
+
+          <button role="button" class="btn btn-outline-light me-md-1 col-md-2 mt-3" routerLink="/painel">
+            <i class="pi pi-user-plus me-2"></i>Voltar
+          </button>
+        </div>
+
+        <div class="mt-5">
+          <table class="table table-light table-striped table-hover ">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody class="text-center fs-6">
+              <tr *ngFor="let equipamento of (equipamentos$ | async)">
+                <td>{{ equipamento.nome }} </td>
+                <td>{{ equipamento.preco }}</td>
+                <td>{{ equipamento.data }}</td>
+                <td class="d-grid d-md-block">
+                  <button
+                  (click)="gravar(modal, equipamento)"
+                  type="button" class="btn btn-primary me-0 me-md-1 mb-1 mb-md-auto ">
+                    <i class=" pi pi-user-edit"></i>
+                  </button>
+
+                  <button (click)="excluir(equipamento)" type="button" class="btn btn-outline-danger  ">
+                    <i class=" pi pi-trash"></i>
+                  </button>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #modal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> {{tituloModal}} de Equipamento</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('fechar')"></button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="modal.close('gravar')">
+      <div class="modal-body">
+
+        <div class="form-group mb-3">
+          <label for="nome" class="form-label">Nome do Equipamento</label>
+          <input formControlName="nome" class="form-control" type="text"
+            placeholder="Digite o nome do seu equipamento">
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="preco" class="form-label">Preço</label>
+          <input formControlName="preco" class="form-control" type="number"
+            placeholder="Digite o preço do seu equipamento">
+        </div>
+        <div class="form-group mb-3">
+          <label for="data" class="form-label">Data</label>
+          <input formControlName="data" class="form-control" type="date"
+            placeholder="Digite a data de criação">
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary col-md-3"
+          (click)="modal.dismiss('fechar')">Cancelar</button>
+        <button type="submit" class="btn btn-primary col-md-3">Gravar</button>
+      </div>
+    </form>
+  </ng-template>
+
+
+
+</body>
