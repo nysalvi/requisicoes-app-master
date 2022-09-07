@@ -9,7 +9,7 @@ export class Requisicao {
     descricao: string;
     departamentoId : string;
     departamento?: Departamento;
-    data: Date;
+    data: string;
     equipamentoId?: string;
     equipamento?: Equipamento;
     

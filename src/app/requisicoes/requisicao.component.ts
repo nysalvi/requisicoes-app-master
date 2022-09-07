@@ -119,16 +119,18 @@ export class RequisicaoComponent implements OnInit {
     this.form.reset(); //para limpar todos os dados do formulario, caso possa ter
 
     if (requisicao){ // esse if seria para caso o objeto selecionado já seja um equipamento, assim já retorna o próprio equipamento da EDIÇÂO
-      requisicao.data = new Date();
       this.form.setValue(requisicao);
       try {
         await this.modalService.open(modal).result;
-
+        
         if (requisicao)
           await this.requisicaoService.editar(this.form.value); // caso seja um requisicao ja instanciado, vai para o metodo editar
-          
-        else
-          await this.requisicaoService.inserir(this.form.value) // caso contrario, é inserido um requisicao novo
+        
+        else{
+          this.form.get("requisicao.data")?.setValue(new Date().toLocaleDateString());
+          await this.requisicaoService.inserir(this.form.value); // caso contrario, é inserido um requisicao novo
+
+        }
         
         this.toastrService.success("A requisição foi salva com sucesso", "Cadastro de Requisições");
       } 
