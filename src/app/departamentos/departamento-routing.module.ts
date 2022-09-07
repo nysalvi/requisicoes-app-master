@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 
 const routes: Routes = [
-  { path: "departamentos", component: DepartamentoComponent }
+  { path: "", component: DepartamentoComponent }
 ];
 
 @NgModule({
